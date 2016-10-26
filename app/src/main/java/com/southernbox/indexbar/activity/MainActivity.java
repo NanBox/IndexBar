@@ -157,8 +157,6 @@ public class MainActivity extends AppCompatActivity {
         list.add(new Entity("保罗", "B"));
         list.add(new Entity("罗斯", "L"));
         list.add(new Entity("加索尔", "J"));
-        list.add(new Entity("欧文", "O"));
-        list.add(new Entity("威廉姆斯", "W"));
         list.add(new Entity("隆多", "L"));
         list.add(new Entity("诺维斯基", "N"));
         list.add(new Entity("格里芬", "G"));
