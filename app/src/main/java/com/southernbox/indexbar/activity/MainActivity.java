@@ -140,7 +140,8 @@ public class MainActivity extends AppCompatActivity {
         list.add(new Entity("科比", "K"));
         list.add(new Entity("乔丹", "Q"));
         list.add(new Entity("奥尼尔", "A"));
-        list.add(new Entity("麦迪", "M"));
+        list.add(new Entity("麦格雷迪", "M"));
+        list.add(new Entity("艾弗森", "A"));
         list.add(new Entity("哈达威", "H"));
         list.add(new Entity("纳什", "N"));
         list.add(new Entity("弗朗西斯", "F"));
@@ -151,6 +152,19 @@ public class MainActivity extends AppCompatActivity {
         list.add(new Entity("帕克", "P"));
         list.add(new Entity("杜兰特", "D"));
         list.add(new Entity("韦伯", "W"));
+        list.add(new Entity("威斯布鲁克", "W"));
+        list.add(new Entity("霍华德", "H"));
+        list.add(new Entity("保罗", "B"));
+        list.add(new Entity("罗斯", "L"));
+        list.add(new Entity("加索尔", "J"));
+        list.add(new Entity("欧文", "O"));
+        list.add(new Entity("威廉姆斯", "W"));
+        list.add(new Entity("隆多", "L"));
+        list.add(new Entity("诺维斯基", "N"));
+        list.add(new Entity("格里芬", "G"));
+        list.add(new Entity("波什", "B"));
+        list.add(new Entity("伊戈达拉", "Y"));
+
         return list;
     }
 }
