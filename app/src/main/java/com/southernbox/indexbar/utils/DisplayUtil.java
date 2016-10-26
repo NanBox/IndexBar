@@ -1,4 +1,4 @@
-package com.southernbox.indexbar.Util;
+package com.southernbox.indexbar.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

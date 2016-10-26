@@ -48,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
     private void initIndexBar() {
         mIndexBar = (IndexBar) findViewById(R.id.indexbar);
         tvToast = (TextView) findViewById(R.id.tv_toast);
-        mIndexBar.setInitialLetterTextView(tvToast);
+        mIndexBar.setSelectedIndexTextView(tvToast);
         tvToast.setVisibility(View.GONE);
-        mIndexBar.setOnLetterChangedListener(new IndexBar.OnLetterChangedListener() {
+        mIndexBar.setOnIndexChangedListener(new IndexBar.OnIndexChangedListener() {
             @Override
-            public void onLetterChanged(String index) {
+            public void onIndexChanged(String index) {
                 for (int i = 0; i < mList.size(); i++) {
                     String firstword = mList.get(i).getFirstword();
                     if (index.equals(firstword)) {
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < keys.length; i++) {
             letters[i] = keys[i].toString();
         }
-        mIndexBar.setLetters(letters);
+        mIndexBar.setIndexs(letters);
         mAdapter.notifyDataSetChanged();
     }
 
@@ -104,13 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
         Object[] key = map.keySet().toArray();
         Arrays.sort(key);
-        //将“#”置于最后
-        if (key.length > 0 && "#".equals(key[0])) {
-            for (int i = 0; i < key.length - 1; i++) {
-                key[i] = key[i + 1];
-            }
-            key[key.length - 1] = "#";
-        }
         List<Entity> sortList = new ArrayList<>();
         for (int i = 0; i < key.length; i++) {
             Entity t = getIndexItem(key[i].toString());
