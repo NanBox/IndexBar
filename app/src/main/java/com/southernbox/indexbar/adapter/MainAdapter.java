@@ -13,7 +13,7 @@ import com.southernbox.indexbar.entity.Entity;
 import java.util.List;
 
 /**
- * Created by nanquan.lin on 2016/10/25 0025.
+ * Created by SouthernBox on 2016/10/25 0025.
  */
 
 public class MainAdapter extends RecyclerView.Adapter {
