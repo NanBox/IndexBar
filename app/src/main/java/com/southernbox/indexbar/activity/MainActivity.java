@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         mIndexBar = (IndexBar) findViewById(R.id.indexbar);
         tvToast = (TextView) findViewById(R.id.tv_toast);
         mIndexBar.setSelectedIndexTextView(tvToast);
-        tvToast.setVisibility(View.GONE);
         mIndexBar.setOnIndexChangedListener(new IndexBar.OnIndexChangedListener() {
             @Override
             public void onIndexChanged(String index) {

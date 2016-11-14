@@ -65,8 +65,6 @@ public class IndexBar extends View {
 
     public void setIndexs(String[] indexs) {
         this.indexs = indexs;
-        mMarginTop = (mHeight - mCellHeight * indexs.length) / 2;
-        invalidate();
     }
 
     @Override
@@ -127,7 +125,6 @@ public class IndexBar extends View {
     // 处理Touch事件
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         // 按下字母的索引
         int letterIndex;
         switch (event.getAction()) {
@@ -135,13 +132,12 @@ public class IndexBar extends View {
                 letterIndex = (int) ((event.getY() - mMarginTop) / mCellHeight);
                 // 越界判断
                 if (letterIndex >= 0 && letterIndex < indexs.length) {
+                    // 显示首字母
                     textView.setVisibility(View.VISIBLE);
                     textView.setText(indexs[letterIndex]);
 
-                    //如果与上一次选择的字母相同，则不打印
                     if (letterIndex != index) {
                         index = letterIndex;
-
                         if (mOnIndexChangedListener != null) {
                             mOnIndexChangedListener.onIndexChanged(indexs[letterIndex]);
                         }
@@ -153,14 +149,12 @@ public class IndexBar extends View {
                 letterIndex = (int) ((event.getY() - mMarginTop) / mCellHeight);
                 // 越界判断
                 if (letterIndex >= 0 && letterIndex < indexs.length) {
-
                     // 显示首字母
                     textView.setVisibility(View.VISIBLE);
                     textView.setText(indexs[letterIndex]);
 
                     if (letterIndex != index) {
                         index = letterIndex;
-
                         if (mOnIndexChangedListener != null) {
                             mOnIndexChangedListener.onIndexChanged(indexs[letterIndex]);
                         }
