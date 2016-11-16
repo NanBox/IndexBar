@@ -14,12 +14,13 @@ import java.util.List;
 
 /**
  * Created by SouthernBox on 2016/10/25 0025.
+ * 适配器
  */
 
 public class MainAdapter extends RecyclerView.Adapter {
 
-    private final int VIEW_INDEX = 0;
-    private final int VIEW_CONTENT = 1;
+    public final static int VIEW_INDEX = 0;
+    public final static int VIEW_CONTENT = 1;
 
     private Context mContext;
     private List<Entity> mList;
@@ -47,7 +48,7 @@ public class MainAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_INDEX) {
-            ((IndexViewHolder) holder).tvIndex.setText(mList.get(position).getFirstword());
+            ((IndexViewHolder) holder).tvIndex.setText(mList.get(position).getFirstWord());
         } else {
             ((ContentViewHolder) holder).tvName.setText(mList.get(position).getName());
         }
@@ -70,7 +71,7 @@ public class MainAdapter extends RecyclerView.Adapter {
     private static class IndexViewHolder extends RecyclerView.ViewHolder {
         TextView tvIndex;
 
-        public IndexViewHolder(View itemView) {
+        IndexViewHolder(View itemView) {
             super(itemView);
         }
     }
@@ -78,7 +79,7 @@ public class MainAdapter extends RecyclerView.Adapter {
     private static class ContentViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
 
-        public ContentViewHolder(View itemView) {
+        ContentViewHolder(View itemView) {
             super(itemView);
         }
     }

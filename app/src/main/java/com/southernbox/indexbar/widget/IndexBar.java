@@ -13,6 +13,7 @@ import com.southernbox.indexbar.utils.DisplayUtil;
 
 /**
  * Created by SouthernBox on 2016/10/25 0025.
+ * 侧边索引栏控件
  */
 
 public class IndexBar extends View {
@@ -31,14 +32,12 @@ public class IndexBar extends View {
      * 控件的宽度
      */
     private int mWidth;
-    /**
-     * 控件的高度
-     */
-    private int mHeight;
+
     /**
      * 单元格的高度
      */
     private float mCellHeight;
+
     /**
      * 顶部间距
      */
@@ -83,8 +82,8 @@ public class IndexBar extends View {
     /**
      * 获取字符的宽度
      *
-     * @param text
-     * @return
+     * @param text 需要测量的字母
+     * @return 对应字母的高度
      */
     public float getTextWidth(String text) {
         Rect bounds = new Rect();
@@ -95,8 +94,8 @@ public class IndexBar extends View {
     /**
      * 获取字符的高度
      *
-     * @param text
-     * @return
+     * @param text 需要测量的字母
+     * @return 对应字母的高度
      */
     public float getTextHeight(String text) {
         Rect bounds = new Rect();
@@ -110,7 +109,7 @@ public class IndexBar extends View {
         super.onSizeChanged(w, h, oldw, oldh);
 
         mWidth = getMeasuredWidth();
-        mHeight = getMeasuredHeight();
+        int mHeight = getMeasuredHeight();
         mCellHeight = (mHeight * 1f / 27);    //26个字母加上“#”
         if (indexs.length > 0) {
             mMarginTop = (mHeight - mCellHeight * indexs.length) / 2;

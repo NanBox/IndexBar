@@ -2,20 +2,21 @@ package com.southernbox.indexbar.entity;
 
 /**
  * Created by SouthernBox on 2016/10/25 0025.
+ * 实体类
  */
 
 public class Entity {
 
     private String name;
-    private String firstword;
+    private String firstWord;
     private boolean isIndex;
 
     public Entity() {
     }
 
-    public Entity(String name, String firstword) {
+    public Entity(String name, String firstWord) {
         this.name = name;
-        this.firstword = firstword;
+        this.firstWord = firstWord;
     }
 
     public String getName() {
@@ -26,12 +27,12 @@ public class Entity {
         this.name = name;
     }
 
-    public String getFirstword() {
-        return firstword;
+    public String getFirstWord() {
+        return firstWord;
     }
 
-    public void setFirstword(String firstword) {
-        this.firstword = firstword;
+    public void setFirstWord(String firstWord) {
+        this.firstWord = firstWord;
     }
 
     public boolean isIndex() {

@@ -19,13 +19,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Created by SouthernBox on 2016/10/25 0025.
+ * 主页面
+ */
+
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
     private MainAdapter mAdapter;
     private List<Entity> mList = new ArrayList<>();
     private IndexBar mIndexBar;
-    private TextView tvToast;
     private LinearLayoutManager layoutManager;
 
     @Override
@@ -38,23 +41,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv);
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.rv);
         layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new MainAdapter(this, mList);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addOnScrollListener(new mScrollListener());
     }
 
     private void initIndexBar() {
         mIndexBar = (IndexBar) findViewById(R.id.indexbar);
-        tvToast = (TextView) findViewById(R.id.tv_toast);
+        TextView tvToast = (TextView) findViewById(R.id.tv_toast);
         mIndexBar.setSelectedIndexTextView(tvToast);
         mIndexBar.setOnIndexChangedListener(new IndexBar.OnIndexChangedListener() {
             @Override
             public void onIndexChanged(String index) {
                 for (int i = 0; i < mList.size(); i++) {
-                    String firstword = mList.get(i).getFirstword();
-                    if (index.equals(firstword)) {
+                    String firstWord = mList.get(i).getFirstWord();
+                    if (index.equals(firstWord)) {
                         // 滚动列表到指定的位置
                         layoutManager.scrollToPositionWithOffset(i, 0);
                         return;
@@ -64,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressWarnings("unchecked")
     private void initData() {
         Map<String, Object> map = convertSortList(getData());
         mList.clear();
@@ -77,48 +82,89 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
     }
 
+    class mScrollListener extends RecyclerView.OnScrollListener {
+
+        private View vFlow = findViewById(R.id.ll_index);
+        private TextView tvFlowIndex = (TextView) findViewById(R.id.tv_index);
+        private int mFlowHeight;
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            mFlowHeight = vFlow.getMeasuredHeight();
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+            int mCurrentPosition = layoutManager.findFirstVisibleItemPosition();
+
+            View view = layoutManager.findViewByPosition(mCurrentPosition + 1);
+
+            if (view != null) {
+                if (view.getTop() <= mFlowHeight && view.getTop() > 0 && isItem(mCurrentPosition + 1)) {
+                    vFlow.setY(view.getTop() - mFlowHeight);
+
+                } else {
+                    vFlow.setY(0);
+                }
+            }
+
+            tvFlowIndex.setText(mList.get(mCurrentPosition).getFirstWord());
+
+        }
+
+        /**
+         * @param position 对应项的下标
+         * @return 是否为标签项
+         */
+        private boolean isItem(int position) {
+            return mAdapter.getItemViewType(position) == MainAdapter.VIEW_INDEX;
+        }
+    }
+
     /**
      * 按首字母将数据排序
      *
-     * @param list
-     * @return
+     * @param list 需要排序的数组
+     * @return 返回按首字母排序的集合（集合中插入标签项），及所有出现的首字母数组
      */
     public Map<String, Object> convertSortList(List<Entity> list) {
         HashMap<String, List<Entity>> map = new HashMap<>();
         for (Entity item : list) {
             String firstWord;
-            if (TextUtils.isEmpty(item.getFirstword())) {
+            if (TextUtils.isEmpty(item.getFirstWord())) {
                 firstWord = "#";
             } else {
-                firstWord = item.getFirstword().toUpperCase();
+                firstWord = item.getFirstWord().toUpperCase();
             }
             if (map.containsKey(firstWord)) {
                 map.get(firstWord).add(item);
             } else {
-                List<Entity> mlist = new ArrayList<>();
-                mlist.add(item);
-                map.put(firstWord, mlist);
+                List<Entity> mList = new ArrayList<>();
+                mList.add(item);
+                map.put(firstWord, mList);
             }
         }
 
-        Object[] key = map.keySet().toArray();
-        Arrays.sort(key);
+        Object[] keys = map.keySet().toArray();
+        Arrays.sort(keys);
         List<Entity> sortList = new ArrayList<>();
-        for (int i = 0; i < key.length; i++) {
-            Entity t = getIndexItem(key[i].toString());
+
+        for (Object key : keys) {
+            Entity t = getIndexItem(key.toString());
             sortList.add(t);
-            sortList.addAll(map.get(key[i]));
+            sortList.addAll(map.get(key));
         }
 
         HashMap<String, Object> resultMap = new HashMap();
         resultMap.put("data", sortList);
-        resultMap.put("key", key);
+        resultMap.put("key", keys);
         return resultMap;
     }
 
-    private Entity getIndexItem(String firstword) {
+    private Entity getIndexItem(String firstWord) {
         Entity entity = new Entity();
-        entity.setFirstword(firstword);
+        entity.setFirstWord(firstWord);
         entity.setIndex(true);
         return entity;
     }
