@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         private View vFlow = findViewById(R.id.ll_index);
         private TextView tvFlowIndex = (TextView) findViewById(R.id.tv_index);
         private int mFlowHeight;
+        private int mCurrentPosition = -1;
 
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -95,22 +96,21 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-
-            int mCurrentPosition = layoutManager.findFirstVisibleItemPosition();
-
-            View view = layoutManager.findViewByPosition(mCurrentPosition + 1);
+            int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+            View view = layoutManager.findViewByPosition(firstVisibleItemPosition + 1);
 
             if (view != null) {
-                if (view.getTop() <= mFlowHeight && view.getTop() > 0 && isItem(mCurrentPosition + 1)) {
+                if (view.getTop() <= mFlowHeight && isItem(firstVisibleItemPosition + 1)) {
                     vFlow.setY(view.getTop() - mFlowHeight);
-
                 } else {
                     vFlow.setY(0);
                 }
             }
 
-            tvFlowIndex.setText(mList.get(mCurrentPosition).getFirstWord());
-
+            if (mCurrentPosition != firstVisibleItemPosition) {
+                mCurrentPosition = firstVisibleItemPosition;
+                tvFlowIndex.setText(mList.get(mCurrentPosition).getFirstWord());
+            }
         }
 
         /**
