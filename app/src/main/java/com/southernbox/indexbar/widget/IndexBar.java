@@ -29,9 +29,10 @@ public class IndexBar extends View {
     public String[] indexs = {};
 
     /**
-     * 控件的宽度
+     * 控件的宽高
      */
     private int mWidth;
+    private int mHeight;
 
     /**
      * 单元格的高度
@@ -64,18 +65,21 @@ public class IndexBar extends View {
 
     public void setIndexs(String[] indexs) {
         this.indexs = indexs;
+        mMarginTop = (mHeight - mCellHeight * indexs.length) / 2;
+        invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         //字母的坐标点：(x,y)
-        if (indexs.length > 0) {
-            for (int i = 0; i < indexs.length; i++) {
-                String letter = indexs[i];
-                float x = (mWidth / 2 - getTextWidth(letter) / 2);
-                float y = (mCellHeight / 2 + getTextHeight(letter) / 2 + mCellHeight * i) + mMarginTop;
-                canvas.drawText(letter, x, y, mPaint);
-            }
+        if (indexs.length <= 0) {
+            return;
+        }
+        for (int i = 0; i < indexs.length; i++) {
+            String letter = indexs[i];
+            float x = mWidth / 2 - getTextWidth(letter) / 2;
+            float y = mCellHeight / 2 + getTextHeight(letter) / 2 + mCellHeight * i + mMarginTop;
+            canvas.drawText(letter, x, y, mPaint);
         }
     }
 
@@ -107,65 +111,40 @@ public class IndexBar extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-
         mWidth = getMeasuredWidth();
-        int mHeight = getMeasuredHeight();
+        mHeight = getMeasuredHeight();
         mCellHeight = (mHeight * 1f / 27);    //26个字母加上“#”
-        if (indexs.length > 0) {
-            mMarginTop = (mHeight - mCellHeight * indexs.length) / 2;
-        }
+        mMarginTop = (mHeight - mCellHeight * indexs.length) / 2;
     }
-
-    /**
-     * 当前按下的字母
-     */
-    private int index = -1;
 
     // 处理Touch事件
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // 按下字母的索引
-        int letterIndex;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:    // 按下
-                letterIndex = (int) ((event.getY() - mMarginTop) / mCellHeight);
-                // 越界判断
-                if (letterIndex >= 0 && letterIndex < indexs.length) {
-                    // 显示首字母
-                    textView.setVisibility(View.VISIBLE);
-                    textView.setText(indexs[letterIndex]);
-
-                    if (letterIndex != index) {
-                        index = letterIndex;
-                        if (mOnIndexChangedListener != null) {
-                            mOnIndexChangedListener.onIndexChanged(indexs[letterIndex]);
-                        }
-                    }
-                }
-
-                break;
             case MotionEvent.ACTION_MOVE:    // 滑动
-                letterIndex = (int) ((event.getY() - mMarginTop) / mCellHeight);
-                // 越界判断
+                // 按下字母的下标
+                int letterIndex = (int) ((event.getY() - mMarginTop) / mCellHeight);
+                // 判断是否越界
                 if (letterIndex >= 0 && letterIndex < indexs.length) {
-                    // 显示首字母
-                    textView.setVisibility(View.VISIBLE);
-                    textView.setText(indexs[letterIndex]);
-
-                    if (letterIndex != index) {
-                        index = letterIndex;
-                        if (mOnIndexChangedListener != null) {
-                            mOnIndexChangedListener.onIndexChanged(indexs[letterIndex]);
-                        }
+                    // 显示按下的字母
+                    if (textView != null) {
+                        textView.setVisibility(View.VISIBLE);
+                        textView.setText(indexs[letterIndex]);
+                    }
+                    //通过回调方法通知列表定位
+                    if (mOnIndexChangedListener != null) {
+                        mOnIndexChangedListener.onIndexChanged(indexs[letterIndex]);
                     }
                 }
                 break;
             case MotionEvent.ACTION_UP:        // 提起
-                textView.setVisibility(View.GONE);
+                if (textView != null) {
+                    textView.setVisibility(View.GONE);
+                }
                 break;
         }
 
-        // 返回true，让控件持续接收事件
         return true;
     }
 

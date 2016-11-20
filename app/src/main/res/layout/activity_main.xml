@@ -9,7 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <include layout="@layout/item_index" />
+    <include
+        layout="@layout/item_index"
+        android:visibility="gone" />
 
     <com.southernbox.indexbar.widget.IndexBar
         android:id="@+id/indexbar"

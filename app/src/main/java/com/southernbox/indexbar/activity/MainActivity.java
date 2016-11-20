@@ -26,9 +26,12 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    private RecyclerView mRecyclerView;
     private MainAdapter mAdapter;
     private List<Entity> mList = new ArrayList<>();
     private IndexBar mIndexBar;
+    private View vFlow;
+    private TextView tvFlowIndex;
     private LinearLayoutManager layoutManager;
 
     @Override
@@ -38,17 +41,23 @@ public class MainActivity extends AppCompatActivity {
         initRecyclerView();
         initIndexBar();
         initData();
+        initFlowIndex();
     }
 
+    /**
+     * 初始化列表
+     */
     private void initRecyclerView() {
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.rv);
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv);
         layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new MainAdapter(this, mList);
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.addOnScrollListener(new mScrollListener());
     }
 
+    /**
+     * 初始化快速索引栏
+     */
     private void initIndexBar() {
         mIndexBar = (IndexBar) findViewById(R.id.indexbar);
         TextView tvToast = (TextView) findViewById(R.id.tv_toast);
@@ -68,12 +77,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 加载数据
+     */
     @SuppressWarnings("unchecked")
     private void initData() {
         Map<String, Object> map = convertSortList(getData());
         mList.clear();
-        mList.addAll((List<Entity>) map.get("data"));
-        Object[] keys = (Object[]) map.get("key");
+        mList.addAll((List<Entity>) map.get("sortList"));
+        Object[] keys = (Object[]) map.get("keys");
         String[] letters = new String[keys.length];
         for (int i = 0; i < keys.length; i++) {
             letters[i] = keys[i].toString();
@@ -82,10 +94,22 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * 初始化顶部悬浮标签
+     */
+    private void initFlowIndex() {
+        vFlow = findViewById(R.id.ll_index);
+        tvFlowIndex = (TextView) findViewById(R.id.tv_index);
+        mRecyclerView.addOnScrollListener(new mScrollListener());
+        //设置首项的索引字母
+        if (mList.size() > 0) {
+            tvFlowIndex.setText(mList.get(0).getFirstWord());
+            vFlow.setVisibility(View.VISIBLE);
+        }
+    }
+
     class mScrollListener extends RecyclerView.OnScrollListener {
 
-        private View vFlow = findViewById(R.id.ll_index);
-        private TextView tvFlowIndex = (TextView) findViewById(R.id.tv_index);
         private int mFlowHeight;
         private int mCurrentPosition = -1;
 
@@ -157,8 +181,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         HashMap<String, Object> resultMap = new HashMap();
-        resultMap.put("data", sortList);
-        resultMap.put("key", keys);
+        resultMap.put("sortList", sortList);
+        resultMap.put("keys", keys);
         return resultMap;
     }
 
