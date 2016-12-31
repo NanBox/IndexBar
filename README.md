@@ -1,6 +1,9 @@
 # IndexBar
-一个简单的侧边快速索引栏实现  
+
+## 侧边栏效果
 
 ![](https://github.com/SouthernBox/IndexBar/blob/master/IndexBar.gif)  
+
+## 悬浮标签效果
 
 ![](https://github.com/SouthernBox/IndexBar/blob/master/FlowIndex.gif)
