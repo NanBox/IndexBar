@@ -1,6 +1,6 @@
 # IndexBar
 
-## 侧边栏效果
+## 侧边索引栏效果
 
 ![](https://github.com/SouthernBox/IndexBar/blob/master/IndexBar.gif)  
 
