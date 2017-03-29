@@ -1,0 +1,9 @@
+MSYS-1.0.12 Build:2011-07-20 17:52
+Exception: STATUS_ILLEGAL_INSTRUCTION at eip=00AE7949
+eax=00000001 ebx=0068F85C ecx=00B5DB68 edx=00160000 esi=0068F860 edi=00000000
+ebp=0068F834 esp=0068F6BC program=C:\Users\KG\AppData\Local\Atlassian\SourceTree\git_local\bin\sh.exe
+cs=0023 ds=002B es=002B fs=0053 gs=002B ss=002B
+Stack trace:
+Frame     Function  Args
+0068F834  00AE7949  (00000000, 00000000, 0000000C, 00000003)
+End of stack trace
