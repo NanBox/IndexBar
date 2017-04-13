@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class mScrollListener extends RecyclerView.OnScrollListener {
+    private class mScrollListener extends RecyclerView.OnScrollListener {
 
         private int mFlowHeight;
         private int mCurrentPosition = -1;
@@ -177,10 +177,10 @@ public class MainActivity extends AppCompatActivity {
         for (Object key : keys) {
             Entity t = getIndexItem(key.toString());
             sortList.add(t);
-            sortList.addAll(map.get(key));
+            sortList.addAll(map.get(key.toString()));
         }
 
-        HashMap<String, Object> resultMap = new HashMap();
+        HashMap<String, Object> resultMap = new HashMap<>();
         resultMap.put("sortList", sortList);
         resultMap.put("keys", keys);
         return resultMap;

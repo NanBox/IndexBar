@@ -121,8 +121,8 @@ public class IndexBar extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:    // 按下
-            case MotionEvent.ACTION_MOVE:    // 滑动
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
                 // 按下字母的下标
                 int letterIndex = (int) ((event.getY() - mMarginTop) / mCellHeight);
                 // 判断是否越界
@@ -138,7 +138,8 @@ public class IndexBar extends View {
                     }
                 }
                 break;
-            case MotionEvent.ACTION_UP:        // 提起
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
                 if (textView != null) {
                     textView.setVisibility(View.GONE);
                 }
