@@ -35,12 +35,12 @@ public class MainAdapter extends RecyclerView.Adapter {
         if (viewType == VIEW_INDEX) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_index, parent, false);
             IndexViewHolder holder = new IndexViewHolder(view);
-            holder.tvIndex = (TextView) view.findViewById(R.id.tv_index);
+            holder.tvIndex = view.findViewById(R.id.tv_index);
             return holder;
         } else {
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_content, parent, false);
             ContentViewHolder holder = new ContentViewHolder(view);
-            holder.tvName = (TextView) view.findViewById(R.id.tv_name);
+            holder.tvName = view.findViewById(R.id.tv_name);
             return holder;
         }
     }

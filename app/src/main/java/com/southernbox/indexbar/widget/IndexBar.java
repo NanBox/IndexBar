@@ -1,5 +1,6 @@
 package com.southernbox.indexbar.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -117,8 +118,8 @@ public class IndexBar extends View {
         mMarginTop = (mHeight - mCellHeight * indexs.length) / 2;
     }
 
-    // 处理Touch事件
     @Override
+    @SuppressLint("ClickableViewAccessibility")
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:

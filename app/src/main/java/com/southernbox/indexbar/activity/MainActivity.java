@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
      * 初始化列表
      */
     private void initRecyclerView() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv);
+        mRecyclerView = findViewById(R.id.rv);
         layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new MainAdapter(this, mList);
@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
      * 初始化快速索引栏
      */
     private void initIndexBar() {
-        mIndexBar = (IndexBar) findViewById(R.id.indexbar);
-        TextView tvToast = (TextView) findViewById(R.id.tv_toast);
+        mIndexBar = findViewById(R.id.indexbar);
+        TextView tvToast = findViewById(R.id.tv_toast);
         mIndexBar.setSelectedIndexTextView(tvToast);
         mIndexBar.setOnIndexChangedListener(new IndexBar.OnIndexChangedListener() {
             @Override
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initFlowIndex() {
         vFlow = findViewById(R.id.ll_index);
-        tvFlowIndex = (TextView) findViewById(R.id.tv_index);
+        tvFlowIndex = findViewById(R.id.tv_index);
         mRecyclerView.addOnScrollListener(new mScrollListener());
         //设置首项的索引字母
         if (mList.size() > 0) {
