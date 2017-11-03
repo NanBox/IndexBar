@@ -1,11 +1,15 @@
-### 侧边索引栏效果
+[![](https://travis-ci.org/SouthernBox/IndexBar.svg?branch=master)](https://travis-ci.org/SouthernBox/IndexBar)
+[![](https://badge.juejin.im/entry/58e46b46570c350057b47e77/likes.svg?style=flat)](https://juejin.im/entry/58e46b46570c350057b47e77/detail)
 
-![](images/IndexBar.gif)  
+# IndexBar
 
-[实现思路](http://www.jianshu.com/p/9cf9ad999aae)
+A simple index side bar.
 
-### 悬浮标签效果
+##  side bar
+
+![](images/IndexBar.gif) 
+
+## suspension tag
 
 ![](images/FlowIndex.gif)
 
-[实现思路](http://www.jianshu.com/p/67634a170333)
